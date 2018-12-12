@@ -65,7 +65,13 @@ class CliFacade
             $conditions[] = $condition;
         }
 
-        $this->router->addRoute(new Route(new CompositeCondition($conditions), new CompositeFilter($filter ?? []), $handler));
+        $filters = [];
+
+        if ($filter) {
+            $filters[] = $filter;
+        }
+
+        $this->router->addRoute(new Route(new CompositeCondition($conditions), new CompositeFilter($filters), $handler));
 
         return $this;
     }
